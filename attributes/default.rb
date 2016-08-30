@@ -1,4 +1,4 @@
-default['mysql']['version'] = '5.6'
+default['mysql']['version'] = '5.7'
 
 default['mysql']['packages'] = %w(
     mysql-server
