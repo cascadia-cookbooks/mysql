@@ -1,2 +1,2 @@
 # mysql
-MySQL
+MySQL 5.7
