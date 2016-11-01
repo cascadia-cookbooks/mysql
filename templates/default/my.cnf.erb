@@ -1,56 +1,62 @@
-[mysql]
+[client]
+port   = <%= @client_port %>
+socket = <%= @client_socket %>
 
-# CLIENT #
-port                           = <%= @client_port %>
-socket                         = <%= @client_socket %>
+[mysqld_safe]
+socket = <%= @socket %>
+nice   = <%= @nice %>
 
 [mysqld]
+user                   = <%= @user %>
+default-storage-engine = <%= @default_storage_engine %>
+socket                 = <%= @socket %>
+pid-file               = <%= @pid_file %>
+bind-address           = <%= @bind_address %>
+port                   = <%= @port %>
 
-# GENERAL #
-user                           = <%= @user %>
-default-storage-engine         = <%= @default_storage_engine %>
-socket                         = <%= @socket %>
-pid-file                       = <%= @pid_file %>
-bind-address                   = <%= @bind_address %>
+key-buffer-size    = <%= @key_buffer_size %>
+myisam-recover     = <%= @myisam_recover %>
 
-# MyISAM #
-key-buffer-size                = <%= @key_buffer_size %>
-myisam-recover                 = <%= @myisam_recover %>
+max-allowed-packet = <%= @max_allowed_packet %>
+max-connect-errors = <%= @max_connect_errors %>
+sysdate-is-now     = <%= @sysdate_is_now %>
 
-# SAFETY #
-max-allowed-packet             = <%= @max_allowed_packet %>
-max-connect-errors             = <%= @max_connect_errors %>
-sysdate-is-now                 = <%= @sysdate_is_now %>
+datadir            = <%= @datadir %>
 
-# DATA STORAGE #
-datadir                        = <%= @datadir %>
+log-bin            = <%= @log_bin %>
+expire-logs-days   = <%= @expire_logs_days %>
+sync-binlog        = <%= @sync_binlog %>
 
-# BINARY LOGGING #
-log-bin                        = <%= @log_bin %>
-expire-logs-days               = <%= @expire_logs_days %>
-sync-binlog                    = <%= @sync_binlog %>
+#tmp-table-size         = <%= @tmp_table_size %>
+#max-heap-table-size    = <%= @max_heap_table_size %>
+#query-cache-type       = <%= @query_cache_type %>
+#query-cache-size       = <%= @query_cache_size %>
+#max-connections        = <%= @max_connections %>
+#thread-cache-size      = <%= @thread_cache_size %>
+#open-files-limit       = <%= @open_files_limit %>
+#table-definition-cache = <%= @table_definition_cache %>
+#table-open-cache       = <%= @table_open_cache %>
 
-# CACHES AND LIMITS #
-tmp-table-size                 = <%= @tmp_table_size %>
-max-heap-table-size            = <%= @max_heap_table_size %>
-query-cache-type               = <%= @query_cache_type %>
-query-cache-size               = <%= @query_cache_size %>
-max-connections                = <%= @max_connections %>
-thread-cache-size              = <%= @thread_cache_size %>
-open-files-limit               = <%= @open_files_limit %>
-table-definition-cache         = <%= @table_definition_cache %>
-table-open-cache               = <%= @table_open_cache %>
+#innodb-flush-method            = <%= @innodb_flush_method %>
+#innodb-log-files-in-group      = <%= @innodb_log_files_in_group %>
+#innodb-log-file-size           = <%= @innodb_log_file_size %>
+#innodb-flush-log-at-trx-commit = <%= @innodb_flush_log_at_trx_commit %>
+#innodb-file-per-table          = <%= @innodb_file_per_table %>
+#innodb-buffer-pool-size        = <%= @innodb_buffer_pool_size %>
 
-# INNODB #
-innodb-flush-method            = <%= @innodb_flush_method %>
-innodb-log-files-in-group      = <%= @innodb_log_files_in_group %>
-innodb-log-file-size           = <%= @innodb_log_file_size %>
-innodb-flush-log-at-trx-commit = <%= @innodb_flush_log_at_trx_commit %>
-innodb-file-per-table          = <%= @innodb_file_per_table %>
-innodb-buffer-pool-size        = <%= @innodb_buffer_pool_size %>
+log-error                     = <%= @log_error %>
+log-queries-not-using-indexes = <%= @log_queries_not_using_indexes %>
+slow-query-log                = <%= @slow_query_log %>
+slow-query-log-file           = <%= @slow_query_log_file %>
 
-# LOGGING #
-log-error                      = <%= @log_error %>
-log-queries-not-using-indexes  = <%= @log_queries_not_using_indexes %>
-slow-query-log                 = <%= @slow_query_log %>
-slow-query-log-file            = <%= @slow_query_log_file %>
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = 16M
+
+[mysql]
+
+[isamchk]
+key_buffer         = 16M
+
+!includedir /etc/mysql/conf.d/
