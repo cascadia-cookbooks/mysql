@@ -24,14 +24,5 @@ template '/etc/mysql/my.cnf' do
 end
 
 service 'mysql' do
-    case node['platform_family']
-    when 'debian'
-        case node['platform_version']
-        when '14.04'
-            provider Chef::Provider::Service::Upstart
-        when '16.04'
-            provider Chef::Provider::Service::Systemd
-        end
-    end
     action [:start, :enable]
 end
