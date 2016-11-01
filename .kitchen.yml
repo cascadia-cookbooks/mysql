@@ -15,3 +15,11 @@ platforms:
 suites:
   - name: default
     run_list: cop_mysql::default
+    attributes:
+        mysql:
+            users:
+                vagrant:
+                    database: 'test_db'
+                    grants: [ 'all' ]
+                    password: 'test'
+            databases: [ 'test_db' ]
