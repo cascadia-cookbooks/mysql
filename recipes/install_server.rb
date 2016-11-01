@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cop_mysql
-# Recipe:: install
+# Recipe:: install_server
 #
 
 mysql_packages = node['mysql']['packages']
@@ -9,6 +9,18 @@ mysql_packages.each do |pkg|
     package pkg do
         action :install
     end
+end
+
+template '/etc/mysql/my.cnf' do
+    action    :create
+    source    'my.cnf.erb'
+    mode      '0440'
+    owner     'root'
+    group     'root'
+    variables (
+        node['mysql']['conf']
+    )
+    notifies :restart, 'service[mysql]', :immediately
 end
 
 service 'mysql' do
@@ -22,16 +34,4 @@ service 'mysql' do
         end
     end
     action [:start, :enable]
-end
-
-template '/etc/mysql/my.cnf' do
-    action    :create
-    source    'my.cnf.erb'
-    mode      '0440'
-    owner     'root'
-    group     'root'
-    variables (
-        node['mysql']['conf']
-    )
-    notifies :restart, 'service[mysql]', :immediately
 end
