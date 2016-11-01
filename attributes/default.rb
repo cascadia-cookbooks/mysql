@@ -57,3 +57,8 @@ default['mysql']['conf'] = {
     :log_error                      => '/var/log/mysql/error.log',
     :log_queries_not_using_indexes  => '1',
     :slow_query_log                 => '1',
+    :slow_query_log_file            => '/var/log/mysql/mysql-slow.log'
+}
+
+default['mysql']['databases'] = { }
+default['mysql']['users'] = { }

@@ -1,4 +1,8 @@
-# install packages
+#
+# Cookbook Name:: cop_mysql
+# Recipe:: install
+#
+
 mysql_packages = node['mysql']['packages']
 
 mysql_packages.each do |pkg|
