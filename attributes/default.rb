@@ -25,18 +25,18 @@ end
 # https://tools.percona.com/wizard for base config generation
 default['mysql']['conf'] = {
     :client_port                    => '3306',
-    :client_socket                  => '/var/mysql/data/mysql.sock',
+    :client_socket                  => '/var/run/mysqld/mysqld.sock',
     :user                           => 'mysql',
     :default_storage_engine         => 'InnoDB',
-    :socket                         => '/var/mysql/data/mysql.sock',
-    :pid_file                       => '/var/mysql/data/mysql.pid',
+    :socket                         => '/var/run/mysqld/mysqld.sock',
+    :pid_file                       => '/var/run/mysqld/mysqld.pid',
     :key_buffer_size                => '32M',
     :myisam_recover                 => 'FORCE,BACKUP',
     :max_allowed_packet             => '16M',
     :max_connect_errors             => '1000000',
     :sysdate_is_now                 => '1',
-    :datadir                        => '/var/mysql/data/',
-    :log_bin                        => '/var/mysql/data/mysql-bin',
+    :datadir                        => '/var/lib/mysql',
+    :log_bin                        => '/var/lib/mysql/mysql-bin.log',
     :expire_logs_days               => '14',
     :sync_binlog                    => '1',
     :tmp_table_size                 => '32M',
@@ -54,8 +54,6 @@ default['mysql']['conf'] = {
     :innodb_flush_log_at_trx_commit => '1',
     :innodb_file_per_table          => '1',
     :innodb_buffer_pool_size        => '1456M',
-    :log_error                      => '/var/mysql/data/mysql-error.log',
+    :log_error                      => '/var/log/mysql/error.log',
     :log_queries_not_using_indexes  => '1',
     :slow_query_log                 => '1',
-    :slow_query_log_file            => '/var/mysql/data/mysql-slow.log'
-}
