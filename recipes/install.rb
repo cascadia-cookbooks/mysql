@@ -11,13 +11,19 @@ mysql_packages.each do |pkg|
     end
 end
 
-# start / enable service
 service 'mysql' do
-    action :nothing
-    supports :start => true, :stop => true, :restart => true, :reload => false, :status => true
+    case node['platform_family']
+    when 'debian'
+        case node['platform_version']
+        when '14.04'
+            provider Chef::Provider::Service::Upstart
+        when '16.04'
+            provider Chef::Provider::Service::Systemd
+        end
+    end
+    action [:start, :enable]
 end
 
-# add config file and restart / reload
 template '/etc/mysql/my.cnf' do
     action    :create
     source    'my.cnf.erb'
