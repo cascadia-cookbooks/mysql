@@ -8,8 +8,6 @@ version             '0.1.0'
 source_url          'https://github.com/copious-cookbooks/mysql'
 issues_url          'https://github.com/copious-cookbooks/mysql/issues'
 
-supports 'rhel'
-supports 'centos'
 supports 'ubuntu', '>= 14.04'
 
 depends 'apt'
