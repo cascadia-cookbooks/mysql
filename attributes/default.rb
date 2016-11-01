@@ -30,6 +30,7 @@ default['mysql']['conf'] = {
     :default_storage_engine         => 'InnoDB',
     :socket                         => '/var/run/mysqld/mysqld.sock',
     :pid_file                       => '/var/run/mysqld/mysqld.pid',
+    :bind_address                   => '0.0.0.0',
     :key_buffer_size                => '32M',
     :myisam_recover                 => 'FORCE,BACKUP',
     :max_allowed_packet             => '16M',
