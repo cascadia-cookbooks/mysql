@@ -1,8 +1,25 @@
-default['mysql']['version'] = '5.7'
+case node['platform_family']
+when 'debian'
+    default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev)
 
-default['mysql']['packages'] = %w(
-    mysql-server
-)
+    case node['platform_version']
+    when '14.04'
+        default['mysql']['version']  = '5.6'
+        default['mysql']['packages'] = %w(mysql-server-5.6)
+    when '16.04'
+        default['mysql']['version']  = '5.7'
+        default['mysql']['packages'] = %w(mysql-server-5.7)
+    end
+when 'fedora', 'rhel'
+    default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch)
+    default['mysql']['dependencies'] = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
+
+    case node['platform_version']
+    when /7.2./
+        default['mysql']['version']  = '5.6'
+        default['mysql']['packages'] = %w(mysql-server-5.6)
+    end
+end
 
 # defaults based on 2 cpus w/4 hyperthreading cores, 2GB memory, dedicated resources.
 # https://tools.percona.com/wizard for base config generation
