@@ -10,7 +10,8 @@ platforms:
     driver:
       box: ubuntu-16.04.1
       box_url: https://s3.amazonaws.com/copiousdev/vagrant/ubuntu-16.04-xenial.box
-  - name: centos-7.2
+  - name: bento/centos-7.2
+  - name: bento/centos-6.7
 
 suites:
   - name: default
