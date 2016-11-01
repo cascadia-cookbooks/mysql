@@ -14,7 +14,7 @@ end
 template '/etc/mysql/my.cnf' do
     action    :create
     source    'my.cnf.erb'
-    mode      '0440'
+    mode      '0644'
     owner     'root'
     group     'root'
     variables (
