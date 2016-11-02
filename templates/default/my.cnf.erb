@@ -59,4 +59,4 @@ max-allowed-packet = <%= @max_allowed_packet %>
 [isamchk]
 key_buffer         = 16M
 
-!includedir /etc/mysql/conf.d/
+!includedir <%= node['mysql']['conf_import'] %>

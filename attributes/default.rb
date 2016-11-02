@@ -1,27 +1,3 @@
-case node['platform_family']
-when 'debian'
-    default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev)
-
-    case node['platform_version']
-    when '14.04'
-        default['mysql']['version']  = '5.6'
-        default['mysql']['packages'] = %w(mysql-server-5.6)
-    when '16.04'
-        default['mysql']['version']  = '5.7'
-        default['mysql']['packages'] = %w(mysql-server-5.7)
-    end
-when 'fedora', 'rhel'
-    default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch)
-    default['mysql']['dependencies'] = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
-
-    case node['platform_version']
-    when /7.2./
-        default['mysql']['version']  = '5.6'
-        default['mysql']['packages'] = %w(mysql-server-5.6)
-    end
-end
-
-# defaults based on 2 cpus w/4 hyperthreading cores, 2GB memory, dedicated resources.
 # https://tools.percona.com/wizard for base config generation
 default['mysql']['conf'] = {
     :client_port                    => 3306,
@@ -66,3 +42,32 @@ default['mysql']['conf'] = {
 
 default['mysql']['databases'] = { }
 default['mysql']['users'] = { }
+
+case node['platform_family']
+when 'debian'
+    default['mysql']['service']      = 'mysql'
+    default['mysql']['conf_file']    = '/etc/mysql/my.cnf'
+    default['mysql']['conf_import']  = '/etc/mysql/conf.d/'
+    default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev libmysqlclient-dev)
+
+    case node['platform_version']
+    when '14.04'
+        default['mysql']['version']  = '5.6'
+        default['mysql']['packages'] = %w(mysql-server-5.6)
+    when '16.04'
+        default['mysql']['version']  = '5.7'
+        default['mysql']['packages'] = %w(mysql-server-5.7)
+    end
+when 'fedora', 'rhel', 'centos'
+    default['mysql']['service']             = 'mysqld'
+    default['mysql']['conf_file']           = '/etc/my.cnf'
+    default['mysql']['conf_import']         = '/etc/my.cnf.d/'
+    default['mysql']['dependencies']        = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch mysql-community-devel)
+    default['mysql']['dependencies']        = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
+
+    case node['platform_version']
+    when /7.2./
+        default['mysql']['version']  = '5.7'
+        default['mysql']['packages'] = %w(mysql-community-server)
+    end
+end

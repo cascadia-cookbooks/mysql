@@ -3,14 +3,27 @@
 # Recipe:: dependencies
 #
 
-node['mysql']['dependencies'].each do |dep|
-    package dep do
+case node['platform_family']
+when 'fedora', 'rhel', 'centos'
+    package = "#{Chef::Config[:file_cache_path]}/mysql.rpm"
+
+    remote_file package do
+        source 'https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm'
+        owner  'root'
+        group  'root'
+        mode   '0644'
+        action :create
+    end
+
+    rpm_package package do
         action :install
     end
 end
 
-package 'libmysqlclient-dev' do
-    action :install
+node['mysql']['dependencies'].each do |dep|
+    package dep do
+        action :install
+    end
 end
 
 gem_package 'mysql2' do
