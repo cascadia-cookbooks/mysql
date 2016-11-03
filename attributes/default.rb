@@ -59,11 +59,11 @@ when 'debian'
         default['mysql']['packages'] = %w(mysql-server-5.7)
     end
 when 'fedora', 'rhel', 'centos'
-    default['mysql']['service']             = 'mysqld'
-    default['mysql']['conf_file']           = '/etc/my.cnf'
-    default['mysql']['conf_import']         = '/etc/my.cnf.d/'
-    default['mysql']['dependencies']        = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch mysql-community-devel)
-    default['mysql']['dependencies']        = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
+    default['mysql']['service']      = 'mysqld'
+    default['mysql']['conf_file']    = '/etc/my.cnf'
+    default['mysql']['conf_import']  = '/etc/my.cnf.d/'
+    default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch mysql-community-devel)
+    default['mysql']['dependencies'] = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
 
     case node['platform_version']
     when /7.2./
