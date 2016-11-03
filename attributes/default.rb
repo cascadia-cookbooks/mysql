@@ -44,6 +44,7 @@ default['mysql']['conf'] = {
 default['mysql']['databases'] = { }
 default['mysql']['users']     = { }
 default['mysql']['log_dir']   = '/var/log/mysql/'
+default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 
 case node['platform_family']
 when 'debian'
