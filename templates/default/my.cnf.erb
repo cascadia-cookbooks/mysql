@@ -2,6 +2,9 @@
 port   = <%= @client_port %>
 socket = <%= @client_socket %>
 
+[mysqladmin]
+socket = <%= @socket %>
+
 [mysqld_safe]
 socket = <%= @socket %>
 nice   = <%= @nice %>
@@ -14,19 +17,15 @@ pid-file               = <%= @pid_file %>
 bind-address           = <%= @bind_address %>
 port                   = <%= @port %>
 
-key-buffer-size    = <%= @key_buffer_size %>
-myisam-recover     = <%= @myisam_recover %>
-
-max-allowed-packet = <%= @max_allowed_packet %>
-max-connect-errors = <%= @max_connect_errors %>
-sysdate-is-now     = <%= @sysdate_is_now %>
-
 datadir            = <%= @datadir %>
 
-log-bin            = <%= @log_bin %>
-expire-logs-days   = <%= @expire_logs_days %>
-sync-binlog        = <%= @sync_binlog %>
-
+key-buffer-size        = <%= @key_buffer_size %>
+symbolic-links         = <%= @symbolic_links %>
+#myisam-recover        = <%= @myisam_recover %>
+max-allowed-packet     = <%= @max_allowed_packet %>
+max-connect-errors     = <%= @max_connect_errors %>
+sysdate-is-now         = <%= @sysdate_is_now %>
+expire-logs-days       = <%= @expire_logs_days %>
 tmp-table-size         = <%= @tmp_table_size %>
 max-heap-table-size    = <%= @max_heap_table_size %>
 query-cache-type       = <%= @query_cache_type %>
@@ -44,6 +43,8 @@ innodb-file-per-table          = <%= @innodb_file_per_table %>
 innodb-buffer-pool-size        = <%= @innodb_buffer_pool_size %>
 innodb-thread-concurrency      = <%= @innodb_thread_concurrency %>
 
+general-log                   = <%= @general_log %>
+general-log-file              = <%= @general_log_file %>
 log-error                     = <%= @log_error %>
 log-queries-not-using-indexes = <%= @log_queries_not_using_indexes %>
 slow-query-log                = <%= @slow_query_log %>
@@ -59,4 +60,4 @@ max-allowed-packet = <%= @max_allowed_packet %>
 [isamchk]
 key_buffer         = 16M
 
-!includedir /etc/mysql/conf.d/
+!includedir <%= node['mysql']['conf_import'] %>

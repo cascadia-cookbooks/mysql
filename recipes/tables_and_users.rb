@@ -7,8 +7,7 @@ connection_info = {
     :host     => '127.0.0.1',
     :port     => '3306',
     :username => 'root',
-    # TODO: make random or something
-    #:password => 'testing'
+    :password => node['mysql']['root_password']
 }
 
 node['mysql']['databases'].each do |database|
