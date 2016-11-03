@@ -15,6 +15,7 @@ default['mysql']['conf'] = {
     :max_connect_errors             => '1000000',
     :sysdate_is_now                 => 1,
     :datadir                        => '/var/lib/mysql',
+    :symbolic_links                 => 0,
     :expire_logs_days               => 1,
     :tmp_table_size                 => '32M',
     :max_heap_table_size            => '32M',
