@@ -21,5 +21,5 @@ suites:
                 vagrant:
                     database: 'test_db'
                     grants: [ 'all' ]
-                    password: 'test'
+                    password: 'Q7uwx4vMq]492*Cuhchk'
             databases: [ 'test_db' ]
