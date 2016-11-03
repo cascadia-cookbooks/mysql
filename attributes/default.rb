@@ -1,3 +1,9 @@
+default['mysql']['databases']     = { }
+default['mysql']['users']         = { }
+default['mysql']['log_dir']       = '/var/log/mysql/'
+default['mysql']['change_root']   = true
+default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
+
 # https://tools.percona.com/wizard for base config generation
 default['mysql']['conf'] = {
     :client_port                    => 3306,
@@ -40,11 +46,6 @@ default['mysql']['conf'] = {
     :slow_query_log                 => 1,
     :slow_query_log_file            => '/var/log/mysql/mysql-slow.log'
 }
-
-default['mysql']['databases'] = { }
-default['mysql']['users']     = { }
-default['mysql']['log_dir']   = '/var/log/mysql/'
-default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 
 case node['platform_family']
 when 'debian'
