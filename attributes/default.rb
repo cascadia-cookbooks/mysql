@@ -40,7 +40,8 @@ default['mysql']['conf'] = {
 }
 
 default['mysql']['databases'] = { }
-default['mysql']['users'] = { }
+default['mysql']['users']     = { }
+default['mysql']['log_dir']   = '/var/log/mysql/'
 
 case node['platform_family']
 when 'debian'

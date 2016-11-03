@@ -12,6 +12,12 @@ mysql_packages.each do |pkg|
     end
 end
 
+directory node['mysql']['log_dir'] do
+    owner  node['mysql']['conf']['user']
+    group  node['mysql']['conf']['user']
+    action :create
+end
+
 template node['mysql']['conf_file'] do
     action    :create
     source    'my.cnf.erb'
