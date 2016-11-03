@@ -2,6 +2,9 @@
 port   = <%= @client_port %>
 socket = <%= @client_socket %>
 
+[mysqladmin]
+socket = <%= @socket %>
+
 [mysqld_safe]
 socket = <%= @socket %>
 nice   = <%= @nice %>
@@ -40,6 +43,8 @@ innodb-file-per-table          = <%= @innodb_file_per_table %>
 innodb-buffer-pool-size        = <%= @innodb_buffer_pool_size %>
 innodb-thread-concurrency      = <%= @innodb_thread_concurrency %>
 
+general-log                   = <%= @general_log %>
+general-log-file              = <%= @general_log_file %>
 log-error                     = <%= @log_error %>
 log-queries-not-using-indexes = <%= @log_queries_not_using_indexes %>
 slow-query-log                = <%= @slow_query_log %>
