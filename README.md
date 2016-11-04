@@ -49,12 +49,12 @@ override_attributes(
         'users' => {
             'vagrant' => {
                 'database' => 'test_db',
-                'grants'   => %w('all'),
+                'grants'   => %w(all),
                 'password' => 'Q7uwx4vMq]492*Cuhchk'
             }
         },
         'databases' => %w{
-            'test_db'
+            test_db
         }
     }
 )
