@@ -4,8 +4,7 @@
 #
 
 connection_info = {
-    :host     => '127.0.0.1',
-    :port     => '3306',
+    :socket   => node['mysql']['conf']['socket'],
     :username => 'root',
     :password => node['mysql']['root_password']
 }
