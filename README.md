@@ -19,12 +19,11 @@ take care of the version depending on which OS version you are running.
 ## Cookbook Attributes
 ### Root Attributes
 * `node['mysql']['change_root']` defaults to true, meaning that it will attempt to
-change the root password after the installing MySQL server package. If you
-already have set a root password before needing this cookbook, then set this
-attribute to false.
+change the root password after installing MySQL server. If you have already set
+a root password in your database, then set this attribute to false.
 
-* `node['mysql']['root_password']` defaults to 'hMw8oVg3nz2j0TBjy6Z1/Q==',
-you need to override it to set your own root password.
+* `node['mysql']['root_password']` defaults to `hMw8oVg3nz2j0TBjy6Z1/Q==`,
+you need to override this attribute with your own root password.
 
 ### User / Database Attributes
 * `node['mysql']['databases']` needs to be an array
@@ -48,10 +47,10 @@ override_attributes(
         'change_root' => true,
         'root_password' => 'some wild and crazy password',
         'users' => {
-	    'vagrant' => {
-	        'database' => 'test_db',
-	        'grants'   => %w('all'),
-	        'password' => 'Q7uwx4vMq]492*Cuhchk'
+            'vagrant' => {
+                'database' => 'test_db',
+                'grants'   => %w('all'),
+                'password' => 'Q7uwx4vMq]492*Cuhchk'
             }
         },
         'databases' => %w{
@@ -65,8 +64,7 @@ run_list(
 )
 ```
 
-This will require you to include a `depends` for this cookbook inside YOUR cookbook's
-`metadata.rb` file.
+NOTE: You are required to include a `depends` for this cookbook inside YOUR cookbook's `metadata.rb` file.
 
 ```ruby
 ...
