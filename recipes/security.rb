@@ -6,9 +6,13 @@
 connection_info = {
     :socket   => node['mysql']['conf']['socket'],
     :username => 'root',
-    #:password => ''
+    # NOTE: default password for debian is blank
+    # NOTE: default password for centos is pulled from error.log
+    # :password => ''
 }
 
+# NOTE: the existence of the lock file should indicate that the password has
+# reset and should not be changed again by Chef
 lock = "#{node['mysql']['datadir']}/password_locked"
 
 case node['platform_family']
