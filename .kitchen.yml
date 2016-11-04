@@ -11,7 +11,6 @@ platforms:
       box: ubuntu-16.04.1
       box_url: https://s3.amazonaws.com/copiousdev/vagrant/ubuntu-16.04-xenial.box
   - name: bento/centos-7.2
-  - name: bento/centos-6.7
 
 suites:
   - name: default
@@ -22,5 +21,5 @@ suites:
                 vagrant:
                     database: 'test_db'
                     grants: [ 'all' ]
-                    password: 'test'
+                    password: 'Q7uwx4vMq]492*Cuhchk'
             databases: [ 'test_db' ]

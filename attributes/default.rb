@@ -1,27 +1,9 @@
-case node['platform_family']
-when 'debian'
-    default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev)
+default['mysql']['databases']     = { }
+default['mysql']['users']         = { }
+default['mysql']['log_dir']       = '/var/log/mysql/'
+default['mysql']['change_root']   = true
+default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 
-    case node['platform_version']
-    when '14.04'
-        default['mysql']['version']  = '5.6'
-        default['mysql']['packages'] = %w(mysql-server-5.6)
-    when '16.04'
-        default['mysql']['version']  = '5.7'
-        default['mysql']['packages'] = %w(mysql-server-5.7)
-    end
-when 'fedora', 'rhel'
-    default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch)
-    default['mysql']['dependencies'] = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
-
-    case node['platform_version']
-    when /7.2./
-        default['mysql']['version']  = '5.6'
-        default['mysql']['packages'] = %w(mysql-server-5.6)
-    end
-end
-
-# defaults based on 2 cpus w/4 hyperthreading cores, 2GB memory, dedicated resources.
 # https://tools.percona.com/wizard for base config generation
 default['mysql']['conf'] = {
     :client_port                    => 3306,
@@ -39,6 +21,7 @@ default['mysql']['conf'] = {
     :max_connect_errors             => '1000000',
     :sysdate_is_now                 => 1,
     :datadir                        => '/var/lib/mysql',
+    :symbolic_links                 => 0,
     :expire_logs_days               => 1,
     :tmp_table_size                 => '32M',
     :max_heap_table_size            => '32M',
@@ -56,11 +39,39 @@ default['mysql']['conf'] = {
     :innodb_file_per_table          => 1,
     :innodb_thread_concurrency      => 0,
     :innodb_buffer_pool_size        => '256M',
+    :general_log                    => 'OFF',
+    :general_log_file               => '/var/log/mysql/mysql.log',
     :log_error                      => '/var/log/mysql/error.log',
     :log_queries_not_using_indexes  => 1,
     :slow_query_log                 => 1,
     :slow_query_log_file            => '/var/log/mysql/mysql-slow.log'
 }
 
-default['mysql']['databases'] = { }
-default['mysql']['users'] = { }
+case node['platform_family']
+when 'debian'
+    default['mysql']['service']      = 'mysql'
+    default['mysql']['conf_file']    = '/etc/mysql/my.cnf'
+    default['mysql']['conf_import']  = '/etc/mysql/conf.d/'
+    default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev libmysqlclient-dev)
+
+    case node['platform_version']
+    when '14.04'
+        default['mysql']['version']  = '5.6'
+        default['mysql']['packages'] = %w(mysql-server-5.6)
+    when '16.04'
+        default['mysql']['version']  = '5.7'
+        default['mysql']['packages'] = %w(mysql-server-5.7)
+    end
+when 'fedora', 'rhel', 'centos'
+    default['mysql']['service']      = 'mysqld'
+    default['mysql']['conf_file']    = '/etc/my.cnf'
+    default['mysql']['conf_import']  = '/etc/my.cnf.d/'
+    default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch mysql-community-devel)
+    default['mysql']['dependencies'] = %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
+
+    case node['platform_version']
+    when /7.2./
+        default['mysql']['version']  = '5.7'
+        default['mysql']['packages'] = %w(mysql-community-server)
+    end
+end

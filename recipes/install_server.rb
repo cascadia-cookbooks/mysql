@@ -3,6 +3,7 @@
 # Recipe:: install_server
 #
 
+service = node['mysql']['service']
 mysql_packages = node['mysql']['packages']
 
 mysql_packages.each do |pkg|
@@ -11,7 +12,13 @@ mysql_packages.each do |pkg|
     end
 end
 
-template '/etc/mysql/my.cnf' do
+directory node['mysql']['log_dir'] do
+    owner  node['mysql']['conf']['user']
+    group  node['mysql']['conf']['user']
+    action :create
+end
+
+template node['mysql']['conf_file'] do
     action    :create
     source    'my.cnf.erb'
     mode      '0644'
@@ -20,9 +27,9 @@ template '/etc/mysql/my.cnf' do
     variables (
         node['mysql']['conf']
     )
-    notifies :restart, 'service[mysql]', :immediately
+    notifies :restart, "service[#{service}]", :immediately
 end
 
-service 'mysql' do
+service service do
     action [:start, :enable]
 end

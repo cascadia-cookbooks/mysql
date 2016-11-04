@@ -4,7 +4,7 @@ long_description    IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 license             'MIT'
 maintainer          'Copious, Inc.'
 maintainer_email    'engineering@copiousinc.com'
-version             '0.2'
+version             '0.3.0'
 source_url          'https://github.com/copious-cookbooks/mysql'
 issues_url          'https://github.com/copious-cookbooks/mysql/issues'
 
