@@ -39,12 +39,11 @@ when 'debian'
         connection connection_info
         password   node['mysql']['root_password']
         action     :create
-        notifies   :touch, 'file[password_locked]', :immediately
+        notifies   :touch, "file[#{lock}]", :immediately
         not_if     { File.exist?(lock) }
     end
 
-    file "password_locked" do
-        path   lock
+    file lock do
         action :nothing
         mode   '0444'
         owner  'root'
