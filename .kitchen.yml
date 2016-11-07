@@ -14,7 +14,7 @@ platforms:
 
 suites:
   - name: server
-    run_list: cop_mysql::default
+    run_list: cop_mysql::install_server
     attributes:
         mysql:
             install_server: true
@@ -26,7 +26,7 @@ suites:
                     password: 'Q7uwx4vMq]492*Cuhchk'
             databases: [ 'test_db' ]
   - name: client
-    run_list: cop_mysql::default
+    run_list: cop_mysql::install_client
     attributes:
         mysql:
             install_server: false
