@@ -4,6 +4,7 @@
 #
 
 include_recipe 'apt'
+include_recipe 'cop_mysql::dependencies'
 
 mysql_packages = node['mysql']['client']['packages']
 
