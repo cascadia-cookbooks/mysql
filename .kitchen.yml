@@ -13,13 +13,21 @@ platforms:
   - name: bento/centos-7.2
 
 suites:
-  - name: default
+  - name: server
     run_list: cop_mysql::default
     attributes:
         mysql:
+            install_server: true
+            install_client: true
             users:
                 vagrant:
                     database: 'test_db'
                     grants: [ 'all' ]
                     password: 'Q7uwx4vMq]492*Cuhchk'
             databases: [ 'test_db' ]
+  - name: client
+    run_list: cop_mysql::default
+    attributes:
+        mysql:
+            install_server: false
+            install_client: true
