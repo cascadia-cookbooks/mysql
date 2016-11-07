@@ -1,4 +1,4 @@
-default['mysql']['change_root']    = true
+default['mysql']['change_root']   = true
 default['mysql']['databases']     = { }
 default['mysql']['users']         = { }
 default['mysql']['log_dir']       = '/var/log/mysql/'
