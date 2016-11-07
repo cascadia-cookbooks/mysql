@@ -1,7 +1,7 @@
 # MySQL Cookbook
-This will install the MySQL Server service via package. It will also change the 
-`root` password on initial installation. It can also create MySQL users and
-databases.
+This will install the MySQL Server service or client via package. It will also
+change the `root` password on initial installation. It can also create MySQL
+users and databases.
 
 At this time there are no options to select a version for MySQL Server, Chef will
 take care of the version depending on which OS version you are running.
@@ -18,6 +18,10 @@ take care of the version depending on which OS version you are running.
 
 ## Cookbook Attributes
 ### Root Attributes
+* `node['mysql']['install_server']` defaults to false, if you want to install
+  the MySQL service, make this `true`
+* `node['mysql']['install_client']` defaults to false, if you want to install
+  the MySQL client, make this `true`
 * `node['mysql']['change_root']` defaults to true, meaning that it will attempt to
 change the root password after installing MySQL server. If you have already set
 a root password in your database, then set this attribute to false.
