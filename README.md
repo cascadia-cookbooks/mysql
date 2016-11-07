@@ -40,14 +40,16 @@ See `attributes/default.rb` for default attributes and override them in your
 role or environment files as needed.
 
 ## Basic Usage
-Here's an example `database` role that will install MySQL.
+Here's an example `database` role that will install MySQL server.
 
 ```ruby
 name 'database'
-description 'installs mysql, a database, and a user!'
+description 'installs mysql server, a database, and a user!'
 
 override_attributes(
     'mysql' => {
+        'install_server' => true,
+        'install_client' => false,
         'change_root' => true,
         'root_password' => 'some wild and crazy password',
         'users' => {
@@ -61,6 +63,29 @@ override_attributes(
             test_db
         }
     }
+)
+
+run_list(
+    'recipe[cop_mysql]'
+)
+```
+
+Here's an example `webserver` role that will install MySQL client. It also tunes
+the `buffer_pool` to be smaller.
+
+```ruby
+name 'webserver'
+description 'installs webserver things!'
+
+override_attributes(
+    ...
+    'mysql' => {
+        'install_client' => true,
+        'conf' => {
+            'innodb_buffer_pool_size' => '150MB',
+        }
+    }
+    ...
 )
 
 run_list(
