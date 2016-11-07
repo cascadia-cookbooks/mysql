@@ -3,8 +3,11 @@
 # Recipe:: install_server
 #
 
-service = node['mysql']['service']
-mysql_packages = node['mysql']['packages']
+include_recipe 'apt'
+include_recipe 'cop_mysql::dependencies'
+
+service        = node['mysql']['service']
+mysql_packages = node['mysql']['server']['packages']
 
 mysql_packages.each do |pkg|
     package pkg do
@@ -33,3 +36,9 @@ end
 service service do
     action [:start, :enable]
 end
+
+if node['mysql']['change_root'] == true
+    include_recipe 'cop_mysql::security'
+end
+
+include_recipe 'cop_mysql::tables_and_users'
