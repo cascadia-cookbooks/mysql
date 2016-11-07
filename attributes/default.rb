@@ -1,7 +1,7 @@
+default['mysql']['change_root']   = true
 default['mysql']['databases']     = { }
 default['mysql']['users']         = { }
 default['mysql']['log_dir']       = '/var/log/mysql/'
-default['mysql']['change_root']   = true
 default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 
 # https://tools.percona.com/wizard for base config generation
@@ -56,11 +56,11 @@ when 'debian'
 
     case node['platform_version']
     when '14.04'
-        default['mysql']['version']  = '5.6'
-        default['mysql']['packages'] = %w(mysql-server-5.6)
+        default['mysql']['client']['packages'] = %w(mysql-client-5.6)
+        default['mysql']['server']['packages'] = %w(mysql-server-5.6)
     when '16.04'
-        default['mysql']['version']  = '5.7'
-        default['mysql']['packages'] = %w(mysql-server-5.7)
+        default['mysql']['client']['packages'] = %w(mysql-client-5.7)
+        default['mysql']['server']['packages'] = %w(mysql-server-5.7)
     end
 when 'fedora', 'rhel', 'centos'
     default['mysql']['service']      = 'mysqld'
@@ -71,7 +71,7 @@ when 'fedora', 'rhel', 'centos'
 
     case node['platform_version']
     when /7.2./
-        default['mysql']['version']  = '5.7'
-        default['mysql']['packages'] = %w(mysql-community-server)
+        default['mysql']['client']['packages'] = %w(mysql-community-client)
+        default['mysql']['server']['packages'] = %w(mysql-community-server)
     end
 end
