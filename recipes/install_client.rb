@@ -3,6 +3,8 @@
 # Recipe:: install_client
 #
 
+include_recipe 'apt'
+
 mysql_packages = node['mysql']['client']['packages']
 
 mysql_packages.each do |pkg|

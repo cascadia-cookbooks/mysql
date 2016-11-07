@@ -18,8 +18,6 @@ take care of the version depending on which OS version you are running.
 
 ## Cookbook Attributes
 ### Root Attributes
-* `node['mysql']['install_server']` defaults to `false`, if you want to install the MySQL service, make this `true`
-* `node['mysql']['install_client']` defaults to `false`, if you want to install the MySQL client, make this `true`
 * `node['mysql']['change_root']` defaults to `true`, meaning that it will
   attempt to change the root password after installing MySQL server. If you have
 already set a root password in your database, then set this attribute to `false`.
@@ -46,8 +44,6 @@ description 'installs mysql server, a database, and a user!'
 
 override_attributes(
     'mysql' => {
-        'install_server' => true,
-        'install_client' => false,
         'change_root'    => true,
         'root_password'  => 'some wild and crazy password',
         'users' => {
@@ -64,7 +60,7 @@ override_attributes(
 )
 
 run_list(
-    'recipe[cop_mysql]'
+    'recipe[cop_mysql::install_server]'
 )
 ```
 
@@ -78,7 +74,6 @@ description 'installs webserver things!'
 override_attributes(
     ...
     'mysql' => {
-        'install_client' => true,
         'conf' => {
             'innodb_buffer_pool_size' => '150MB',
         }
@@ -87,7 +82,7 @@ override_attributes(
 )
 
 run_list(
-    'recipe[cop_mysql]'
+    'recipe[cop_mysql::install_client]'
 )
 ```
 
