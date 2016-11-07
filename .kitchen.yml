@@ -17,8 +17,6 @@ suites:
     run_list: cop_mysql::install_server
     attributes:
         mysql:
-            install_server: true
-            install_client: true
             users:
                 vagrant:
                     database: 'test_db'
@@ -28,6 +26,3 @@ suites:
   - name: client
     run_list: cop_mysql::install_client
     attributes:
-        mysql:
-            install_server: false
-            install_client: true

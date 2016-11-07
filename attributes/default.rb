@@ -1,7 +1,4 @@
-default['mysql']['install_server'] = false
-default['mysql']['install_client'] = false
 default['mysql']['change_root']    = true
-
 default['mysql']['databases']     = { }
 default['mysql']['users']         = { }
 default['mysql']['log_dir']       = '/var/log/mysql/'
