@@ -18,19 +18,17 @@ take care of the version depending on which OS version you are running.
 
 ## Cookbook Attributes
 ### Root Attributes
-* `node['mysql']['install_server']` defaults to false, if you want to install
-  the MySQL service, make this `true`
-* `node['mysql']['install_client']` defaults to false, if you want to install
-  the MySQL client, make this `true`
-* `node['mysql']['change_root']` defaults to true, meaning that it will attempt to
-change the root password after installing MySQL server. If you have already set
-a root password in your database, then set this attribute to false.
+* `node['mysql']['install_server']` defaults to `false`, if you want to install the MySQL service, make this `true`
+* `node['mysql']['install_client']` defaults to `false`, if you want to install the MySQL client, make this `true`
+* `node['mysql']['change_root']` defaults to `true`, meaning that it will
+  attempt to change the root password after installing MySQL server. If you have
+already set a root password in your database, then set this attribute to `false`.
 
 * `node['mysql']['root_password']` defaults to `hMw8oVg3nz2j0TBjy6Z1/Q==`,
 you need to override this attribute with your own root password.
 
 ### User / Database Attributes
-* `node['mysql']['databases']` needs to be an array
+* `node['mysql']['databases']` needs to be a hash
 * `node['mysql']['users']` needs to be a hash of named hashes
 
 Examples are farther below.
@@ -50,8 +48,8 @@ override_attributes(
     'mysql' => {
         'install_server' => true,
         'install_client' => false,
-        'change_root' => true,
-        'root_password' => 'some wild and crazy password',
+        'change_root'    => true,
+        'root_password'  => 'some wild and crazy password',
         'users' => {
             'vagrant' => {
                 'database' => 'test_db',
@@ -71,7 +69,7 @@ run_list(
 ```
 
 Here's an example `webserver` role that will install MySQL client. It also tunes
-the `buffer_pool` to be smaller.
+the `buffer_pool to be smaller.
 
 ```ruby
 name 'webserver'
