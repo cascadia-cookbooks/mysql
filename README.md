@@ -53,9 +53,9 @@ override_attributes(
                 'password' => 'Q7uwx4vMq]492*Cuhchk'
             }
         },
-        'databases' => %w{
+        'databases' => %w(
             test_db
-        }
+        )
     }
 )
 
