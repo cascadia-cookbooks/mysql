@@ -4,7 +4,7 @@
 #
 
 service = node['mysql']['service']
-mysql_packages = node['mysql']['packages']
+mysql_packages = node['mysql']['server']['packages']
 
 mysql_packages.each do |pkg|
     package pkg do
