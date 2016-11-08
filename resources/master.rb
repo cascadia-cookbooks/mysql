@@ -27,7 +27,7 @@ action :create do
         mode     0644
         backup   false
         action   :create
-        notifies :reload, "service[#{service}]", :immediately
+        notifies :restart, "service[#{service}]", :immediately
     end
 
     service service do
@@ -39,7 +39,7 @@ action :delete do
     file "#{node['mysql']['conf_import']}/#{name}.cnf" do
         backup   false
         action   :delete
-        notifies :reload, "service[#{service}]", :immediately
+        notifies :restart, "service[#{service}]", :immediately
     end
 
     service service do
