@@ -13,8 +13,10 @@ platforms:
   - name: bento/centos-7.2
 
 suites:
-  - name: server
-    run_list: cop_mysql::install_server
+  - name: server_master
+    run_list:
+        - cop_mysql::install_server
+        - cop_mysql::test_master
     attributes:
         mysql:
             users:
@@ -23,6 +25,12 @@ suites:
                     grants: [ 'all' ]
                     password: 'Q7uwx4vMq]492*Cuhchk'
             databases: [ 'test_db' ]
+  - name: server_slave
+    run_list:
+        - cop_mysql::install_server
+        - cop_mysql::test_slave
+    attributes:
+
   - name: client
     run_list: cop_mysql::install_client
     attributes:
