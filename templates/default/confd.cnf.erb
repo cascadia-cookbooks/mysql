@@ -1,0 +1,6 @@
+[mysqld]
+<% if @options %>
+    <% @options.each do |key,value| %>
+<%= key %> = <%= value %>
+    <% end %>
+<% end %>
