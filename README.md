@@ -94,6 +94,51 @@ depends 'cop_mysql'
 ...
 ```
 
+## Cookbook Resources
+### Creating a master
+This will create a master config called `kitchen.cnf`. Options will be added to the end of the file. Any options added here will override those in `my.cnf`.
+
+```ruby
+mysql_master 'kitchen' do
+    id            1
+    log_bin       'mysql-bin'
+    sync_binlog   1
+    binlog_format 'mixed'
+    action        :create
+    options       ({
+        'read-only'        => 0,
+        'binlog-ignore-db' => 'mysql'
+    })
+end
+```
+
+### Creating a slave
+This will create a slave config called `kitchen.cnf`. Options will be added to the end of the file. Any options added here will override those in `my.cnf`.
+
+```ruby
+mysql_slave 'kitchen' do
+    id      2
+    action  :create
+    options ({
+        'read-only'         => 1,
+        'log-slave-updates' => 1
+    })
+end
+```
+
+### Creating a custom my.cnf file
+This will create an imported config called `kitchen.cnf`. Any options added here will override those in `my.cnf`.
+
+```ruby
+mysql_confd 'kitchen' do
+    action  :create
+    options ({
+        'general-log' => 1,
+        'read-only'   => 1
+    })
+end
+```
+
 ## Testing
 * http://kitchen.ci
 * http://serverspec.org
