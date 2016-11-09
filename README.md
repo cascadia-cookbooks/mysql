@@ -96,10 +96,10 @@ depends 'cop_mysql'
 
 ## Cookbook Resources
 ### Creating a master
-This will create a master config called `kitchen.cnf`. Options will be added to the end of the file. Any options added here will override those in `my.cnf`.
+This will create a master config called `primary_data.cnf`. Options will be added to the end of the file. Any options added here will override those in `my.cnf`.
 
 ```ruby
-mysql_master 'kitchen' do
+mysql_master 'primary_data' do
     id            1
     log_bin       'mysql-bin'
     sync_binlog   1
@@ -113,10 +113,10 @@ end
 ```
 
 ### Creating a slave
-This will create a slave config called `kitchen.cnf`. Options will be added to the end of the file. Any options added here will override those in `my.cnf`.
+This will create a slave config called `read_slave.cnf`. Options will be added to the end of the file. Any options added here will override those in `my.cnf`.
 
 ```ruby
-mysql_slave 'kitchen' do
+mysql_slave 'read_slave' do
     id      2
     action  :create
     options ({
@@ -127,10 +127,10 @@ end
 ```
 
 ### Creating a custom my.cnf file
-This will create an imported config called `kitchen.cnf`. Any options added here will override those in `my.cnf`.
+This will create an imported config called `additional_configs.cnf`. Any options added here will override those in `my.cnf`.
 
 ```ruby
-mysql_confd 'kitchen' do
+mysql_confd 'additional_configs' do
     action  :create
     options ({
         'general-log' => 1,
