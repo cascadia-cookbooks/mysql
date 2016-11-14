@@ -56,7 +56,7 @@ when 'debian'
 
     case node['platform_version']
     when '14.04'
-        default['mysql']['client']['packages'] = %w(mysql-client-5.6)
+        default['mysql']['client']['packages'] = %w(mysql-client-5.6 mysql-client-core-5.6)
         default['mysql']['server']['packages'] = %w(mysql-server-5.6)
     when '16.04'
         default['mysql']['client']['packages'] = %w(mysql-client-5.7)
