@@ -48,8 +48,9 @@ override_attributes(
         'root_password'  => 'some wild and crazy password',
         'users' => {
             'vagrant' => {
-                'database' => 'test_db',
+                'databases' => %w(test_db),
                 'grants'   => %w(all),
+                'host'     => '%',
                 'password' => 'Q7uwx4vMq]492*Cuhchk'
             }
         },

@@ -23,11 +23,13 @@ node['mysql']['users'].each do |user, data|
         action     :create
     end
 
-    mysql_database_user user do
-        connection    connection_info
-        privileges    data['privileges']
-        host          '%'
-        database_name data['database']
-        action        :grant
+    data['databases'].each do |database|
+        mysql_database_user user do
+            connection    connection_info
+            privileges    data['privileges'] || %w(all)
+            host          data['host'] || '%'
+            database_name database
+            action        :grant
+        end
     end
 end
