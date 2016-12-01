@@ -8,6 +8,7 @@ default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 default['mysql']['conf'] = {
     :client_port                    => 3306,
     :client_socket                  => '/var/run/mysqld/mysqld.sock',
+    :client_host                    => '127.0.0.1',
     :nice                           => 0,
     :user                           => 'mysql',
     :default_storage_engine         => 'InnoDB',

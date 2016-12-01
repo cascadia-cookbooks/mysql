@@ -30,8 +30,8 @@ end
 
 template node['mysql']['conf_file'] do
     action    :create
-    source    'my.cnf.erb'
-    mode      0644
+    source    'server-my.cnf.erb'
+    mode      '0644'
     owner     'root'
     group     'root'
     backup    5
