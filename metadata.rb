@@ -9,6 +9,9 @@ source_url          'https://github.com/copious-cookbooks/mysql'
 issues_url          'https://github.com/copious-cookbooks/mysql/issues'
 
 supports 'ubuntu', '>= 14.04'
+supports 'debian', '>= 6'
+supports 'rhel', '>= 6'
+supports 'centos', '>= 6'
 
 depends 'apt'
 depends 'database'
