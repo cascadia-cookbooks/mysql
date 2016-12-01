@@ -15,7 +15,7 @@ end
 
 template node['mysql']['conf_file'] do
     action    :create
-    source    'my.cnf.erb'
+    source    'client-my.cnf.erb'
     mode      '0644'
     owner     'root'
     group     'root'
