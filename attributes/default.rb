@@ -59,8 +59,8 @@ when 'debian'
         default['mysql']['client']['packages'] = %w(mysql-common-5.6 mysql-client-core-5.6 mysql-client-5.6)
         default['mysql']['server']['packages'] = %w(mysql-common-5.6 mysql-server-5.6)
     when /16.04/, /8./
-        default['mysql']['client']['packages'] = %w(mysql-common-5.7 mysql-client-core-5.7 mysql-client-5.7)
-        default['mysql']['server']['packages'] = %w(mysql-common-5.7 mysql-server-5.7)
+        default['mysql']['client']['packages'] = %w(mysql-common mysql-client-core-5.7 mysql-client-5.7)
+        default['mysql']['server']['packages'] = %w(mysql-common mysql-server-5.7)
     end
 when 'rhel'
     default['mysql']['service']      = 'mysqld'
