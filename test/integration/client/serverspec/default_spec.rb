@@ -2,15 +2,9 @@ require 'spec_helper'
 
 case os[:family]
 when 'ubuntu', 'debian'
-    config = '/etc/mysql/my.cnf'
-    case os[:release]
-    when /16.04/
-        package = 'mysql-client-5.7'
-        mode    = 777
-    when /14.04/
-        package = 'mysql-client-5.6'
-        mode    = 644
-    end
+    config  = '/etc/mysql/my.cnf'
+    package = 'mysql-client'
+    mode    = 777
 when 'redhat'
     package = 'mysql-community-client'
     config  = '/etc/my.cnf'

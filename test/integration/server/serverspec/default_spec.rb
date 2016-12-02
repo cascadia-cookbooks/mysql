@@ -1,18 +1,18 @@
 require 'spec_helper'
 
+version = /5.7/
+service = 'mysql'
 case os[:family]
 when 'ubuntu', 'debian'
-    config = '/etc/mysql/my.cnf'
-    case os[:release]
-    when /16.04/
-        package = 'mysql-client-5.7'
-        mode    = 777
-    when /14.04/
-        package = 'mysql-client-5.6'
-        mode    = 644
-    end
+    config  = '/etc/mysql/my.cnf'
+    package = 'mysql-server'
+    mode    = 777
 when 'redhat'
-    package = 'mysql-community-client'
+    case os[:release]
+    when /7.2/
+        service = 'mysqld'
+    end
+    package = 'mysql-community-server'
     config  = '/etc/my.cnf'
     mode    = 644
 end
@@ -42,7 +42,7 @@ describe 'cop_mysql::install_server' do
     it { should be_grouped_into 'mysql' }
   end
 
-  describe service('mysql') do
+  describe service(service) do
     it { should be_running }
   end
 
