@@ -3,7 +3,6 @@
 # Recipe:: install_server
 #
 
-include_recipe 'apt'
 include_recipe 'cop_mysql::dependencies'
 
 service        = node['mysql']['service']

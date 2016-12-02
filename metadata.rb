@@ -13,5 +13,4 @@ supports 'debian', '>= 6'
 supports 'rhel', '>= 6'
 supports 'centos', '>= 6'
 
-depends 'apt'
 depends 'database'
