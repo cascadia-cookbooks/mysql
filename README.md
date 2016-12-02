@@ -1,19 +1,18 @@
 # MySQL Cookbook
-This will install the MySQL Server service or client via package. It will also
+This will install the MySQL Server 5.7 service or client via package. It will also
 change the `root` password on initial installation. It can also create MySQL
 users and databases.
 
-At this time there are no options to select a version for MySQL Server, Chef will
-take care of the version depending on which OS version you are running.
-
 ## Information
 ### Supported Platforms
-- Ubuntu 14.04 (Installs MySQL 5.6)
-- Ubuntu 16.04 (Installs MySQL 5.7)
-- RHEL/Centos 7 (Installs MySQL 5.7)
+* ubuntu/xenial64
+* ubuntu/trusty64
+* centos/7
+* centos/6
+* debian/jessie64
+* debian/wheezy64
 
 ### Cookbook Dependencies
-- apt
 - database
 
 ## Cookbook Attributes
