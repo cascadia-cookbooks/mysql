@@ -1,22 +1,28 @@
 require 'spec_helper'
 
-mode = 644
-
 case os[:family]
 when 'ubuntu', 'debian'
+    config = '/etc/mysql/my.cnf'
     case os[:release]
     when /16.04/
-        mode = 777
+        package = 'mysql-client-5.7'
+        mode    = 777
     when /14.04/
+        package = 'mysql-client-5.6'
+        mode    = 644
     end
 when 'redhat'
-    case os[:release]
-    when ''
-    end
+    package = 'mysql-community-client'
+    config  = '/etc/my.cnf'
+    mode    = 644
 end
 
 describe 'cop_mysql::install_client' do
-  describe file('/etc/mysql/my.cnf') do
+  describe package(package) do
+    it { should be_installed }
+  end
+
+  describe file(config) do
     it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
