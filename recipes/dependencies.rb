@@ -3,20 +3,64 @@
 # Recipe:: dependencies
 #
 
-case node['platform_family']
-when 'fedora', 'rhel', 'centos'
-    package = "#{Chef::Config[:file_cache_path]}/mysql.rpm"
+cache = Chef::Config[:file_cache_path]
 
-    remote_file package do
-        source 'https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm'
-        owner  'root'
-        group  'root'
-        mode   '0644'
-        action :create
+remote_file 'download mysql gpg key' do
+    path   "#{cache}/mysql.asc"
+    source 'https://repo.mysql.com/RPM-GPG-KEY-mysql'
+    owner  'root'
+    group  'root'
+    mode   0644
+    action :create_if_missing
+end
+
+case node['platform_family']
+when 'debian'
+    # NOTE: support for https in apt repos
+    package 'apt-transport-https' do
+        action :install
     end
 
-    rpm_package package do
-        action :install
+    execute 'import mysql gpg' do
+        command "apt-key add #{cache}/mysql.asc"
+        # NOTE: mysql public key id: 5072e1f5
+        not_if  'apt-key list | grep 5072e1f5'
+        action  :run
+    end
+
+    file 'install mysql repo' do
+        path    '/etc/apt/sources.list.d/mysql.list'
+        content "deb https://repo.mysql.com/apt/#{node['platform']}/ #{node['lsb']['codename']} mysql-5.7"
+        user   'root'
+        group  'root'
+        mode   0644
+        action :create
+        notifies :run, 'execute[update apt]', :immediately
+    end
+
+    execute 'update apt' do
+        command 'apt-get update'
+        action  :nothing
+    end
+when 'rhel'
+    execute 'import mysql gpg' do
+        command "rpm --import #{cache}/mysql.asc"
+        # NOTE: mysql public key id: 5072e1f5
+        not_if  'rpm -qa gpg-pubkey* | grep 5072e1f5'
+        action  :run
+    end
+
+    file 'install mysql repo' do
+        path    '/etc/yum.repos.d/mysql-community.repo'
+        content "[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=https://repo.mysql.com/yum/mysql-5.7-community/el/#{node['platform_version'].to_i}/$basearch/
+enabled=1
+gpgcheck=1"
+        user   'root'
+        group  'root'
+        mode   0644
+        action :create
     end
 end
 
