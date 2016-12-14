@@ -29,7 +29,7 @@ when 'debian'
     end
 
     file 'install mysql repo' do
-        path    '/etc/apt/sources.list.d/mysql.list'
+        path    node['mysql']['repo_path']
         content "deb https://repo.mysql.com/apt/#{node['platform']}/ #{node['lsb']['codename']} mysql-5.7"
         user   'root'
         group  'root'
@@ -51,7 +51,7 @@ when 'rhel'
     end
 
     file 'install mysql repo' do
-        path    '/etc/yum.repos.d/mysql-community.repo'
+        path    node['mysql']['repo_path']
         content "[mysql57-community]
 name=MySQL 5.7 Community Server
 baseurl=https://repo.mysql.com/yum/mysql-5.7-community/el/#{node['platform_version'].to_i}/$basearch/
