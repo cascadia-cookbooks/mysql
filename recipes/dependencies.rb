@@ -21,21 +21,22 @@ when 'debian'
         action :install
     end
 
-    execute 'import mysql gpg' do
-        command "apt-key add #{cache}/mysql.asc"
-        # NOTE: mysql public key id: 5072e1f5
-        not_if  'apt-key list | grep 5072e1f5'
-        action  :run
-    end
-
     file 'install mysql repo' do
         path    node['mysql']['repo_path']
         content "deb https://repo.mysql.com/apt/#{node['platform']}/ #{node['lsb']['codename']} mysql-5.7"
         user   'root'
         group  'root'
         mode   0644
-        action :create
+        action :create_if_missing
+        notifies :run, 'execute[import mysql gpg]', :immediately
         notifies :run, 'execute[update apt]', :immediately
+    end
+
+    execute 'import mysql gpg' do
+        command "apt-key add #{cache}/mysql.asc"
+        # NOTE: mysql public key id: 5072e1f5
+        not_if  'apt-key list | grep 5072e1f5'
+        action  :nothing
     end
 
     execute 'update apt' do
@@ -43,13 +44,6 @@ when 'debian'
         action  :nothing
     end
 when 'rhel'
-    execute 'import mysql gpg' do
-        command "rpm --import #{cache}/mysql.asc"
-        # NOTE: mysql public key id: 5072e1f5
-        not_if  'rpm -qa gpg-pubkey* | grep 5072e1f5'
-        action  :run
-    end
-
     file 'install mysql repo' do
         path    node['mysql']['repo_path']
         content "[mysql57-community]
@@ -60,7 +54,15 @@ gpgcheck=1"
         user   'root'
         group  'root'
         mode   0644
-        action :create
+        action :create_if_missing
+        notifies :run, 'execute[import mysql gpg]', :immediately
+    end
+
+    execute 'import mysql gpg' do
+        command "rpm --import #{cache}/mysql.asc"
+        # NOTE: mysql public key id: 5072e1f5
+        not_if  'rpm -qa gpg-pubkey* | grep 5072e1f5'
+        action  :nothing
     end
 end
 
