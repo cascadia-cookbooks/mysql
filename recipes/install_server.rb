@@ -15,15 +15,23 @@ mysql_packages.each do |pkg|
 end
 
 directory node['mysql']['log_dir'] do
+    mode   0755
     owner  node['mysql']['conf']['user']
     group  node['mysql']['conf']['user']
+    action :create
+end
+
+directory node['mysql']['conf_import'] do
+    mode   0755
+    owner  'root'
+    group  'root'
     action :create
 end
 
 template node['mysql']['conf_file'] do
     action    :create
     source    'my.cnf.erb'
-    mode      '0644'
+    mode      0644
     owner     'root'
     group     'root'
     variables (
