@@ -34,6 +34,7 @@ template node['mysql']['conf_file'] do
     mode      0644
     owner     'root'
     group     'root'
+    backup    5
     variables (
         node['mysql']['conf']
     )
