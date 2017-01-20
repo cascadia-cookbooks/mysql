@@ -58,11 +58,6 @@ when 'debian'
     default['mysql']['client']['packages'] = %w(mysql-community-client)
     default['mysql']['server']['packages'] = %w(mysql-community-server)
     default['mysql']['repo_path'] = '/etc/apt/sources.list.d/mysql.list'
-
-    case node['platform_version']
-    when /14.04/, /7./
-    when /16.04/, /8./
-    end
 when 'rhel'
     default['mysql']['service']      = 'mysqld'
     default['mysql']['conf_file']    = '/etc/my.cnf'
@@ -74,9 +69,4 @@ when 'rhel'
     default['mysql']['client']['packages'] = %w(mysql-community-client)
     default['mysql']['server']['packages'] = %w(mysql-community-server)
     default['mysql']['repo_path'] = '/etc/yum.repos.d/mysql-community.repo'
-
-    case node['platform_version']
-    when /7.2/
-    when /6.8/
-    end
 end
