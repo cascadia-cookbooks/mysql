@@ -7,6 +7,8 @@ when 'ubuntu', 'debian'
     config  = '/etc/mysql/my.cnf'
     package = 'mysql-server'
     mode    = 777
+    # NOTE: This follows through two symlinks to /etc/mysql/mysql.cnf
+    #       which is set to 644
 when 'redhat'
     case os[:release]
     when /7.*/
