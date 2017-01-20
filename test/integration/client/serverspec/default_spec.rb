@@ -3,7 +3,7 @@ require 'spec_helper'
 case os[:family]
 when 'ubuntu', 'debian'
     config  = '/etc/mysql/my.cnf'
-    package = 'mysql-client'
+    package = 'mysql-community-client'
     mode    = 777
 when 'redhat'
     package = 'mysql-community-client'
