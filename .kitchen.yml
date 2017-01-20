@@ -1,6 +1,8 @@
 driver:
   name: vagrant
   customize:
+    # NOTE: Memory is increased to 1024 for consistency across all environments
+    #       MySQL server installation tends to fail with less than this
     memory: 1024
 
 provisioner:
