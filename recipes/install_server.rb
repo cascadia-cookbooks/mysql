@@ -28,7 +28,14 @@ directory node['mysql']['conf_import'] do
     action :create
 end
 
-template node['mysql']['conf_file'] do
+file node['mysql']['conf_file'] do
+    content   "!includedir #{node['mysql']['conf_import']}"
+    mode      '0644'
+    owner     'root'
+    group     'root'
+end
+
+template "#{node['mysql']['conf_import']}/server.cnf" do
     action    :create
     source    'server-my.cnf.erb'
     mode      '0644'
