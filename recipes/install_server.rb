@@ -43,6 +43,8 @@ end
 
 service service do
     action [:start, :enable]
+    retries 1
+    # NOTE: Retry has been added to prevent a timing issue on Centos 7 systemd
 end
 
 if node['mysql']['change_root'] == true
