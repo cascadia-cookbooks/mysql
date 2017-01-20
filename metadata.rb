@@ -1,10 +1,10 @@
 name                'cop_mysql'
-description         'Installs and configures MySQL 5.6.'
+description         'Installs and configures MySQL 5.7.'
 long_description    IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 license             'MIT'
 maintainer          'Copious, Inc.'
 maintainer_email    'engineering@copiousinc.com'
-version             '0.6.2'
+version             '0.7.0'
 source_url          'https://github.com/copious-cookbooks/mysql'
 issues_url          'https://github.com/copious-cookbooks/mysql/issues'
 
