@@ -55,8 +55,8 @@ when 'debian'
     default['mysql']['conf_import']  = '/etc/mysql/conf.d/'
     default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev libmysqlclient-dev)
 
-    default['mysql']['client']['packages'] = %w(mysql-client)
-    default['mysql']['server']['packages'] = %w(mysql-server)
+    default['mysql']['client']['packages'] = %w(mysql-community-client)
+    default['mysql']['server']['packages'] = %w(mysql-community-server)
     default['mysql']['repo_path'] = '/etc/apt/sources.list.d/mysql.list'
 
     case node['platform_version']
