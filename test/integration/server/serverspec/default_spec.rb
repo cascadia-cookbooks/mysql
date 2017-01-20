@@ -9,7 +9,7 @@ when 'ubuntu', 'debian'
     mode    = 777
 when 'redhat'
     case os[:release]
-    when /7.2/
+    when /7.*/
         service = 'mysqld'
     end
     package = 'mysql-community-server'
