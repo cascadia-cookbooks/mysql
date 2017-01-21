@@ -32,3 +32,16 @@ suites:
   - name: client
     run_list: cop_mysql::install_client
     attributes:
+  - name: monolithic
+    run_list:
+      - recipe[cop_mysql::install_server]
+      - recipe[cop_mysql::install_client]
+    attributes:
+        mysql:
+            users:
+                vagrant:
+                    databases: [ 'test_db', 'test_db2' ]
+                    host: '%'
+                    grants: [ 'all' ]
+                    password: 'Q7uwx4vMq]492*Cuhchk'
+        databases: [ 'test_db', 'test_db1', 'test_db2' ]
