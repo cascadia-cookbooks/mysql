@@ -8,6 +8,8 @@ driver:
 provisioner:
   name: chef_zero
   require_chef_omnibus: 12.16.42
+  # NOTE: Rolled back Chef version due to current version incompatibilities
+  #       with Debian Wheezy
 
 platforms:
   - name: ubuntu/xenial64 # 16.04
