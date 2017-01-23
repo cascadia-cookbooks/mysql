@@ -9,7 +9,7 @@ when 'ubuntu', 'debian'
     # NOTE: This follows through two symlinks to /etc/mysql/mysql.cnf which is set to 644
     config        = '/etc/mysql/conf.d/server.cnf'
     mode          = 644
-    package       = 'mysql-server'
+    package       = 'mysql-community-server'
 when 'redhat'
     case os[:release]
     when /7.*/
@@ -23,6 +23,10 @@ when 'redhat'
 end
 
 describe 'cop_mysql::install_server' do
+  describe package(package) do
+    it { should be_installed }
+  end
+
   describe file('/usr/sbin/mysqld') do
     it { should be_executable }
     it { should be_file }
