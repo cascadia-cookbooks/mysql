@@ -20,7 +20,14 @@ file node['mysql']['conf_file'] do
     group     'root'
 end
 
-template "#{node['mysql']['conf_import']}/client.cnf" do
+directory node['mysql']['conf_import'] do
+    mode   0755
+    owner  'root'
+    group  'root'
+    action :create
+end
+
+template "#{node['mysql']['conf_import']}client.cnf" do
     action    :create
     source    'client-my.cnf.erb'
     mode      '0644'
