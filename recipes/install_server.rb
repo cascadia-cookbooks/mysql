@@ -29,7 +29,7 @@ directory node['mysql']['conf_import'] do
 end
 
 file node['mysql']['conf_file'] do
-    content   "!includedir #{node['mysql']['conf_import']}"
+    content   "!includedir #{node['mysql']['conf_import']}/"
     mode      '0644'
     owner     'root'
     group     'root'
