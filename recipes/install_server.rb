@@ -35,7 +35,7 @@ file node['mysql']['conf_file'] do
     group     'root'
 end
 
-template "#{node['mysql']['conf_import']}server.cnf" do
+template "#{node['mysql']['conf_import']}/server.cnf" do
     action    :create
     source    'server-my.cnf.erb'
     mode      '0644'

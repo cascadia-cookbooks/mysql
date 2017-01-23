@@ -27,7 +27,7 @@ directory node['mysql']['conf_import'] do
     action :create
 end
 
-template "#{node['mysql']['conf_import']}client.cnf" do
+template "#{node['mysql']['conf_import']}/client.cnf" do
     action    :create
     source    'client-my.cnf.erb'
     mode      '0644'

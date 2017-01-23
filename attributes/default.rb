@@ -52,7 +52,7 @@ case node['platform_family']
 when 'debian'
     default['mysql']['service']      = 'mysql'
     default['mysql']['conf_file']    = '/etc/mysql/my.cnf'
-    default['mysql']['conf_import']  = '/etc/mysql/conf.d/'
+    default['mysql']['conf_import']  = '/etc/mysql/conf.d'
     default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev libmysqlclient-dev)
 
     default['mysql']['client']['packages'] = %w(mysql-community-client)
@@ -61,7 +61,7 @@ when 'debian'
 when 'rhel'
     default['mysql']['service']      = 'mysqld'
     default['mysql']['conf_file']    = '/etc/my.cnf'
-    default['mysql']['conf_import']  = '/etc/my.cnf.d/'
+    default['mysql']['conf_import']  = '/etc/my.cnf.d'
 
     default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch mysql-community-devel)
     default['mysql']['dependencies'] += %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
