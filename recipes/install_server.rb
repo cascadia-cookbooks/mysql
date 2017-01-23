@@ -28,10 +28,17 @@ directory node['mysql']['conf_import'] do
     action :create
 end
 
-template node['mysql']['conf_file'] do
+file node['mysql']['conf_file'] do
+    content   "!includedir #{node['mysql']['conf_import']}"
+    mode      '0644'
+    owner     'root'
+    group     'root'
+end
+
+template "#{node['mysql']['conf_import']}/server.cnf" do
     action    :create
-    source    'my.cnf.erb'
-    mode      0644
+    source    'server-my.cnf.erb'
+    mode      '0644'
     owner     'root'
     group     'root'
     backup    5
@@ -43,6 +50,8 @@ end
 
 service service do
     action [:start, :enable]
+    retries 1
+    # NOTE: Retry has been added to prevent a timing issue on Centos 7 systemd
 end
 
 if node['mysql']['change_root'] == true

@@ -1,7 +1,6 @@
 [client]
 port   = <%= @client_port %>
 socket = <%= @client_socket %>
-host   = <%= @client_host %>
 
 [mysqladmin]
 socket = <%= @socket %>
@@ -61,4 +60,3 @@ max-allowed-packet = <%= @max_allowed_packet %>
 [isamchk]
 key_buffer         = 16M
 
-!includedir <%= node['mysql']['conf_import'] %>

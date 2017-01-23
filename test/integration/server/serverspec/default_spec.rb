@@ -4,20 +4,29 @@ version = /5.7/
 service = 'mysql'
 case os[:family]
 when 'ubuntu', 'debian'
-    config  = '/etc/mysql/my.cnf'
-    package = 'mysql-server'
-    mode    = 777
+    master_config = '/etc/mysql/my.cnf'
+    master_mode   = 777
+    # NOTE: This follows through two symlinks to /etc/mysql/mysql.cnf which is set to 644
+    config        = '/etc/mysql/conf.d/server.cnf'
+    mode          = 644
+    package       = 'mysql-community-server'
 when 'redhat'
     case os[:release]
-    when /7.2/
+    when /7.*/
         service = 'mysqld'
     end
-    package = 'mysql-community-server'
-    config  = '/etc/my.cnf'
-    mode    = 644
+    master_config = '/etc/my.cnf'
+    master_mode   = 644
+    config        = '/etc/my.cnf.d/server.cnf'
+    mode          = 644
+    package       = 'mysql-community-server'
 end
 
 describe 'cop_mysql::install_server' do
+  describe package(package) do
+    it { should be_installed }
+  end
+
   describe file('/usr/sbin/mysqld') do
     it { should be_executable }
     it { should be_file }
@@ -27,6 +36,13 @@ describe 'cop_mysql::install_server' do
 
   describe command('/usr/sbin/mysqld -V') do
     its(:stdout) { should match version }
+  end
+
+  describe file(master_config) do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+    it { should be_mode master_mode }
   end
 
   describe file(config) do

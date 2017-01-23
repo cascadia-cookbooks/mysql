@@ -8,6 +8,7 @@ default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 default['mysql']['conf'] = {
     :client_port                    => 3306,
     :client_socket                  => '/var/run/mysqld/mysqld.sock',
+    :client_host                    => '127.0.0.1',
     :nice                           => 0,
     :user                           => 'mysql',
     :default_storage_engine         => 'InnoDB',
@@ -51,21 +52,16 @@ case node['platform_family']
 when 'debian'
     default['mysql']['service']      = 'mysql'
     default['mysql']['conf_file']    = '/etc/mysql/my.cnf'
-    default['mysql']['conf_import']  = '/etc/mysql/conf.d/'
+    default['mysql']['conf_import']  = '/etc/mysql/conf.d'
     default['mysql']['dependencies'] = %w(autoconf binutils-doc bison build-essential flex gettext ncurses-dev libmysqlclient-dev)
 
-    default['mysql']['client']['packages'] = %w(mysql-client)
-    default['mysql']['server']['packages'] = %w(mysql-server)
+    default['mysql']['client']['packages'] = %w(mysql-community-client)
+    default['mysql']['server']['packages'] = %w(mysql-community-server)
     default['mysql']['repo_path'] = '/etc/apt/sources.list.d/mysql.list'
-
-    case node['platform_version']
-    when /14.04/, /7./
-    when /16.04/, /8./
-    end
 when 'rhel'
     default['mysql']['service']      = 'mysqld'
     default['mysql']['conf_file']    = '/etc/my.cnf'
-    default['mysql']['conf_import']  = '/etc/my.cnf.d/'
+    default['mysql']['conf_import']  = '/etc/my.cnf.d'
 
     default['mysql']['dependencies'] = %w(autoconf bison flex gcc gcc-c++ gettext kernel-devel make m4 ncurses-devel patch mysql-community-devel)
     default['mysql']['dependencies'] += %w(gcc44 gcc44-c++) if node['platform_version'].to_i < 6
@@ -73,9 +69,4 @@ when 'rhel'
     default['mysql']['client']['packages'] = %w(mysql-community-client)
     default['mysql']['server']['packages'] = %w(mysql-community-server)
     default['mysql']['repo_path'] = '/etc/yum.repos.d/mysql-community.repo'
-
-    case node['platform_version']
-    when /7.2/
-    when /6.8/
-    end
 end

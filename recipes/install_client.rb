@@ -13,9 +13,23 @@ mysql_packages.each do |pkg|
     end
 end
 
-template node['mysql']['conf_file'] do
+file node['mysql']['conf_file'] do
+    content   "!includedir #{node['mysql']['conf_import']}"
+    mode      '0644'
+    owner     'root'
+    group     'root'
+end
+
+directory node['mysql']['conf_import'] do
+    mode   0755
+    owner  'root'
+    group  'root'
+    action :create
+end
+
+template "#{node['mysql']['conf_import']}/client.cnf" do
     action    :create
-    source    'my.cnf.erb'
+    source    'client-my.cnf.erb'
     mode      '0644'
     owner     'root'
     group     'root'
