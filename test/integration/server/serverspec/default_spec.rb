@@ -17,7 +17,7 @@ when 'redhat'
     end
     master_config = '/etc/my.cnf'
     master_mode   = 644
-    config        = '/etc/conf.d/my.cnf'
+    config        = '/etc/my.cnf.d/server.cnf'
     mode          = 644
     package       = 'mysql-community-server'
 end
