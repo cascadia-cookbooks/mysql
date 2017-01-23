@@ -10,7 +10,7 @@ when 'ubuntu', 'debian'
 when 'redhat'
     master_config  = '/etc/my.cnf'
     master_mode    = 644
-    config         = '/etc/conf.d/client.cnf'
+    config         = '/etc/my.cnf.d/client.cnf'
     mode           = 644
     package        = 'mysql-community-client'
 end
