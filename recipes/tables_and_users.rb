@@ -28,6 +28,7 @@ node['mysql']['users'].each do |user, data|
             connection    connection_info
             privileges    data['privileges'] || %w(all)
             host          data['host'] || '%'
+            password      data['password']
             database_name database
             action        :grant
         end
