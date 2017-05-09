@@ -2,6 +2,7 @@ default['mysql']['change_root']   = true
 default['mysql']['databases']     = { }
 default['mysql']['users']         = { }
 default['mysql']['log_dir']       = '/var/log/mysql/'
+default['mysql']['datadir']       = '/var/lib/mysql'
 default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
 
 # https://tools.percona.com/wizard for base config generation
@@ -21,7 +22,7 @@ default['mysql']['conf'] = {
     :max_allowed_packet             => '16M',
     :max_connect_errors             => '1000000',
     :sysdate_is_now                 => 1,
-    :datadir                        => '/var/lib/mysql',
+    :datadir                        => node['mysql']['datadir'],
     :symbolic_links                 => 0,
     :expire_logs_days               => 1,
     :tmp_table_size                 => '32M',
