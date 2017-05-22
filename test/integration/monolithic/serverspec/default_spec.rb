@@ -86,6 +86,13 @@ describe 'cop_mysql::install_server' do
     it { should be_running }
   end
 
+  describe file('/var/run/mysqld/mysqld.sock') do
+    it { should exist }
+    it { should be_socket }
+    it { should be_owned_by 'mysql' }
+    it { should be_grouped_into 'mysql' }
+  end
+
   describe port(3306) do
     it { should be_listening.with('tcp') }
   end
