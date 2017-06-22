@@ -30,11 +30,6 @@ when 'debian'
         notifies :run, 'execute[update apt]', :immediately
     end
 
-    execute 'update apt' do
-        command 'apt-get update'
-        action  :nothing
-    end
-
 when 'rhel'
 
     yum_repository 'mysql' do
