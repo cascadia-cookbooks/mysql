@@ -5,10 +5,8 @@
 
 include_recipe 'cop_mysql::dependencies'
 
-mysql_packages = node['mysql']['client']['packages']
-
-package mysql_packages do
-	action :install
+package node['mysql']['client']['packages'] do
+    action :install
 end
 
 file node['mysql']['conf_file'] do
