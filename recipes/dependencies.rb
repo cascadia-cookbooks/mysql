@@ -43,10 +43,8 @@ when 'rhel'
 
 end
 
-node['mysql']['dependencies'].each do |dep|
-    package dep do
-        action :install
-    end
+package node['mysql']['dependencies'] do
+    action :install
 end
 
 gem_package 'mysql2' do
