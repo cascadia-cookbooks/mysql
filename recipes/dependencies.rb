@@ -16,7 +16,6 @@ when 'debian'
         distribution "#{node['lsb']['codename']}"
         key "https://repo.mysql.com/RPM-GPG-KEY-mysql"
         components ['mysql-5.7']
-        notifies :run, 'execute[update apt]', :immediately
     end
 
 when 'rhel'
