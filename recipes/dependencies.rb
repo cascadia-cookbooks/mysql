@@ -42,26 +42,18 @@ when 'debian'
         command 'apt-get update'
         action  :nothing
     end
+
 when 'rhel'
-    file 'install mysql repo' do
-        path    node['mysql']['repo_path']
-        content "[mysql57-community]
-name=MySQL 5.7 Community Server
-baseurl=https://repo.mysql.com/yum/mysql-5.7-community/el/#{node['platform_version'].to_i}/$basearch/
-enabled=1
-gpgcheck=1"
-        user   'root'
-        group  'root'
-        mode   0644
-        action :create_if_missing
+
+    yum_repository 'mysql' do
+        description "MySQL 5.7 Community Repository"
+        baseurl "https://repo.mysql.com/yum/mysql-5.7-community/el/#{node['platform_version'].to_i}/$basearch/"
+        enabled true
+        gpgcheck true
+        gpgkey "https://repo.mysql.com/RPM-GPG-KEY-mysql"
+        action :create
     end
 
-    execute 'import mysql gpg' do
-        command "rpm --import #{cache}/mysql.asc"
-        # NOTE: mysql public key id: 5072e1f5
-        not_if  'rpm -qa gpg-pubkey* | grep 5072e1f5'
-        action  :run
-    end
 end
 
 node['mysql']['dependencies'].each do |dep|
