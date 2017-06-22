@@ -16,25 +16,17 @@ end
 
 case node['platform_family']
 when 'debian'
+
     # NOTE: support for https in apt repos
     package 'apt-transport-https' do
         action :install
     end
 
-    execute 'import mysql gpg' do
-        command "apt-key add #{cache}/mysql.asc"
-        # NOTE: mysql public key id: 5072e1f5
-        not_if  'apt-key list | grep 5072e1f5'
-        action  :run
-    end
-
-    file 'install mysql repo' do
-        path    node['mysql']['repo_path']
-        content "deb https://repo.mysql.com/apt/#{node['platform']}/ #{node['lsb']['codename']} mysql-5.7"
-        user   'root'
-        group  'root'
-        mode   0644
-        action :create_if_missing
+    apt_repository 'mysql' do
+        uri "https://repo.mysql.com/apt/#{node['platform']}/"
+        distribution "#{node['lsb']['codename']}"
+        key "https://repo.mysql.com/RPM-GPG-KEY-mysql"
+        components ['mysql-5.7']
         notifies :run, 'execute[update apt]', :immediately
     end
 
