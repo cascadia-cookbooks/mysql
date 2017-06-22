@@ -3,17 +3,6 @@
 # Recipe:: dependencies
 #
 
-cache = Chef::Config[:file_cache_path]
-
-remote_file 'download mysql gpg key' do
-    path   "#{cache}/mysql.asc"
-    source 'https://repo.mysql.com/RPM-GPG-KEY-mysql'
-    owner  'root'
-    group  'root'
-    mode   0644
-    action :create_if_missing
-end
-
 case node['platform_family']
 when 'debian'
 
