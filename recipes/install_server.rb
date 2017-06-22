@@ -8,10 +8,8 @@ include_recipe 'cop_mysql::dependencies'
 service        = node['mysql']['service']
 mysql_packages = node['mysql']['server']['packages']
 
-mysql_packages.each do |pkg|
-    package pkg do
-        action :install
-    end
+package mysql_packages do
+    action :install
 end
 
 directory node['mysql']['log_dir'] do
