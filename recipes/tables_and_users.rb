@@ -22,9 +22,9 @@ sensitive_info = begin
                      nil
                  end
 
+# NOTE: grab sensitive passwords from databag if users are found
 if sensitive_info
     node.default['mysql']['users'] = node['mysql']['users'].merge(sensitive_info)
-    puts "***: #{node['mysql']['users']}"
 end
 
 node['mysql']['users'].each do |user, data|
