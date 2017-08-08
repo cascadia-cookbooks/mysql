@@ -4,7 +4,7 @@ default['mysql']['users']         = { }
 default['mysql']['log_dir']       = '/var/log/mysql/'
 default['mysql']['datadir']       = '/var/lib/mysql'
 default['mysql']['root_password'] = begin
-                                        data_bag('mysql', node.chef_environment)['root_password']
+                                        data_bag_item('mysql', node.chef_environment)['root_password']
                                     rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
                                         'hMw8oVg3nz2j0TBjy6Z1/Q=='
                                     end
