@@ -24,9 +24,38 @@ already set a root password in your database, then set this attribute to `false`
 * `node['mysql']['root_password']` defaults to `hMw8oVg3nz2j0TBjy6Z1/Q==`,
 you need to override this attribute with your own root password.
 
+This attribute can optionally be saved in a databag (or encrypted databag), so long as the
+bucket is `mysql` and the item/id is the chef environment. An example will be
+shown below.
+
+```
+$ cat chef/data_bags/mysql/development.json
+{
+  "id": "development",
+  "root_password": "baz",
+  ...
+}
+```
+
 ### User / Database Attributes
 * `node['mysql']['databases']` needs to be a hash
 * `node['mysql']['users']` needs to be a hash of named hashes
+
+The users attribute can optionally be saved in a databag (or encrypted databag), so long as the
+bucket is `mysql` and the item/id is the chef environment. An example will be
+shown below. The passwords will be merged together in the Chef run.
+
+```
+$ cat chef/data_bags/mysql/development.json
+{
+  "id": "development",
+  "users": {
+    "foo": {
+      "password": "bar"
+    }
+  }
+}
+```
 
 Examples are farther below.
 

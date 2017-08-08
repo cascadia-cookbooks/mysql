@@ -16,6 +16,18 @@ node['mysql']['databases'].each do |database|
     end
 end
 
+sensitive_info = begin
+                     data_bag_item('mysql', node.chef_environment)['users']
+                 rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
+                     # NOTE: setting to nil will skip the condition below
+                     nil
+                 end
+
+# NOTE: merge sensitive passwords with users attribute tree
+if sensitive_info
+    node.default['mysql']['users'] = node['mysql']['users'].merge(sensitive_info)
+end
+
 node['mysql']['users'].each do |user, data|
     mysql_database_user user do
         connection connection_info

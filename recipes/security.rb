@@ -15,6 +15,14 @@ connection_info = {
 # reset and should not be changed again by Chef
 lock = "#{node['mysql']['datadir']}/password_locked"
 
+# NOTE: grab sensitive password from databag if its found, or else default the
+#       generated one in the attributes
+node.default['mysql']['root_password'] = begin
+                                             data_bag_item('mysql', node.chef_environment)['root_password']
+                                         rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
+                                             node['mysql']['root_password']
+                                         end
+
 case node['platform_family']
 when 'fedora', 'rhel', 'centos'
     ruby_block "get password" do
