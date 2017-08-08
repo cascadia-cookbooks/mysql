@@ -23,8 +23,8 @@ sensitive_info = begin
                  end
 
 if sensitive_info
+    node.default['mysql']['users'] = sensitive_info.merge(node['mysql']['users'])
     puts "***: #{node['mysql']['users']}"
-    puts "***2: #{sensitive_info}"
 end
 
 node['mysql']['users'].each do |user, data|
