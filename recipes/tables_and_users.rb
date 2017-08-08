@@ -17,7 +17,7 @@ node['mysql']['databases'].each do |database|
 end
 
 sensitive_info = begin
-                     data_bag_item('mysql', node.chef_environment)['users']
+                     data_bag_item('mysql', node.chef_environment)
                  rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
                      nil
                  end
