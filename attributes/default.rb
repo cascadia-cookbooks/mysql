@@ -3,7 +3,11 @@ default['mysql']['databases']     = { }
 default['mysql']['users']         = { }
 default['mysql']['log_dir']       = '/var/log/mysql/'
 default['mysql']['datadir']       = '/var/lib/mysql'
-default['mysql']['root_password'] = 'hMw8oVg3nz2j0TBjy6Z1/Q=='
+default['mysql']['root_password'] = begin
+                                        data_bag('mysql', node.chef_environment)['root_password']
+                                    rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
+                                        'hMw8oVg3nz2j0TBjy6Z1/Q=='
+                                    end
 
 # https://tools.percona.com/wizard for base config generation
 default['mysql']['conf'] = {

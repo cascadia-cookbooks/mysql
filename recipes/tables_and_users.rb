@@ -16,6 +16,17 @@ node['mysql']['databases'].each do |database|
     end
 end
 
+sensitive_info = begin
+                     data_bag('mysql', node.chef_environment)['users']
+                 rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
+                     nil
+                 end
+
+if sensitive_info
+    puts "***: #{node['mysql']['users']}"
+    puts "***2: #{sensitive_info}"
+end
+
 node['mysql']['users'].each do |user, data|
     mysql_database_user user do
         connection connection_info
