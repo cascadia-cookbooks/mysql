@@ -23,7 +23,7 @@ sensitive_info = begin
                  end
 
 if sensitive_info
-    node.default['mysql']['users'] = sensitive_info.merge(node['mysql']['users'])
+    node.default['mysql']['users'] = node['mysql']['users'].merge(sensitive_info)
     puts "***: #{node['mysql']['users']}"
 end
 
