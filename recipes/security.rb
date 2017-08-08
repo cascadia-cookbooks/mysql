@@ -15,7 +15,7 @@ connection_info = {
 # reset and should not be changed again by Chef
 lock = "#{node['mysql']['datadir']}/password_locked"
 
-node.set['mysql']['root_password'] = begin
+node.default['mysql']['root_password'] = begin
                                          data_bag_item('mysql', node.chef_environment)['root_password']
                                      rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
                                          node['mysql']['root_password']
