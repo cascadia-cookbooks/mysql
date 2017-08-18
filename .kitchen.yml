@@ -7,16 +7,13 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: 13.1.31
-  # Last tested version
 
 platforms:
-  - name: ubuntu/xenial64 # 16.04
-  - name: ubuntu/trusty64 # 14.04
-  - name: centos/7        # 7.3
-  - name: centos/6        # 6.8
-  - name: debian/jessie64 # 8
-  - name: debian/wheezy64 # 7
+  - name: ubuntu/xenial64  # 16.04
+  - name: ubuntu/trusty64  # 14.04
+  - name: centos/7         # 7
+  - name: debian/stretch64 # 9
+  - name: debian/jessie64  # 8
 
 suites:
   - name: server
